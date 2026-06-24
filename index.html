@@ -71,6 +71,11 @@
       position: relative;
     }
 
+    .right-slot {
+      position: relative;
+      min-height: 680px;
+    }
+
     .hero,
     .panel {
       position: relative;
@@ -84,8 +89,8 @@
 
     #ageGate,
     #mainApp {
-      grid-column: 2;
-      grid-row: 1;
+      position: absolute;
+      inset: 0;
     }
 
     .panel .subtle {
@@ -773,12 +778,16 @@
         grid-template-columns: 1fr;
       }
 
+      .right-slot {
+        min-height: auto;
+        order: -1;
+      }
+
       .hero {
         min-height: auto;
       }
 
       .ai-panel {
-        order: -1;
         min-height: auto;
       }
 
@@ -858,66 +867,67 @@
         </div>
       </div>
 
-      <div class="panel reveal delay-1" id="ageGate">
-        <h2>Enter the experience</h2>
-        <p class="subtle">Confirm the basics before the AI intake becomes available.</p>
+      <div class="right-slot">
+        <div class="panel reveal delay-1" id="ageGate">
+          <h2>Enter the experience</h2>
+          <p class="subtle">Confirm the basics before the AI intake becomes available.</p>
 
-        <div class="gate">
-          <div class="option">
-            <input type="checkbox" id="ageCheck" />
-            <label for="ageCheck">I confirm that I am 18 years of age or older.</label>
-          </div>
-
-          <div class="option">
-            <input type="checkbox" id="consentCheck" />
-            <label for="consentCheck">I agree to use this platform respectfully and understand that harassment, coercion, solicitation, or illegal activity is not allowed.</label>
-          </div>
-
-          <div class="button-row">
-            <button class="primary" type="button" id="enterButton">Enter</button>
-            <button class="ghost" type="button" id="resetButton">Reset</button>
-          </div>
-
-          <p class="warning" id="gateWarning" aria-live="polite"></p>
-        </div>
-      </div>
-
-      <div class="ai-panel hidden" id="mainApp">
-        <div class="ai-status">
-          <span></span>
-          Digital Host Online
-        </div>
-
-        <div class="ai-avatar">
-          <div class="glow-ring ring-one"></div>
-          <div class="glow-ring ring-two"></div>
-
-          <div class="person">
-            <div class="hair"></div>
-            <div class="face">
-              <div class="eyes">
-                <span></span>
-                <span></span>
-              </div>
-              <div class="mouth"></div>
+          <div class="gate">
+            <div class="option">
+              <input type="checkbox" id="ageCheck" />
+              <label for="ageCheck">I confirm that I am 18 years of age or older.</label>
             </div>
-            <div class="neck"></div>
-            <div class="body"></div>
+
+            <div class="option">
+              <input type="checkbox" id="consentCheck" />
+              <label for="consentCheck">I agree to use this platform respectfully and understand that harassment, coercion, solicitation, or illegal activity is not allowed.</label>
+            </div>
+
+            <div class="button-row">
+              <button class="primary" type="button" id="enterButton">Enter</button>
+              <button class="ghost" type="button" id="resetButton">Reset</button>
+            </div>
+
+            <p class="warning" id="gateWarning" aria-live="polite"></p>
           </div>
         </div>
 
-        <div class="speech-bubble">
-          <strong>Ava</strong>
-          <p id="hostBubble">Hi, I’m your AI matchmaker. Let’s find out what kind of connection feels right for you.</p>
-        </div>
+        <div class="ai-panel hidden" id="mainApp">
+          <div class="ai-status">
+            <span></span>
+            Digital Host Online
+          </div>
 
-        <div class="ai-actions">
-          <button type="button" id="talkButton">Talk</button>
-          <button type="button" id="typeButton">Type</button>
-          <button type="button" class="ghost" id="cameraButton">Camera Coming Soon</button>
-        </div>
+          <div class="ai-avatar">
+            <div class="glow-ring ring-one"></div>
+            <div class="glow-ring ring-two"></div>
 
-        <div class="module-grid">
+            <div class="person">
+              <div class="hair"></div>
+              <div class="face">
+                <div class="eyes">
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="mouth"></div>
+              </div>
+              <div class="neck"></div>
+              <div class="body"></div>
+            </div>
+          </div>
+
+          <div class="speech-bubble">
+            <strong>Ava</strong>
+            <p id="hostBubble">Hi, I’m your AI matchmaker. Let’s find out what kind of connection feels right for you.</p>
+          </div>
+
+          <div class="ai-actions">
+            <button type="button" id="talkButton">Talk</button>
+            <button type="button" id="typeButton">Type</button>
+            <button type="button" class="ghost" id="cameraButton">Camera Coming Soon</button>
+          </div>
+
+          <div class="module-grid">
           <section class="module">
             <h3>Account Access</h3>
             <div class="form-grid">
@@ -999,6 +1009,7 @@
               </div>
             </div>
           </section>
+        </div>
         </div>
       </div>
     </section>
