@@ -82,6 +82,143 @@
       overflow: hidden;
     }
 
+    .panel .subtle {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .gate {
+      display: grid;
+      gap: 14px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 20px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .option:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    input[type="checkbox"] {
+      margin-top: 4px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-2);
+      flex: 0 0 auto;
+    }
+
+    label[for] {
+      cursor: pointer;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid rgba(108, 229, 194, 0.45);
+      outline-offset: 2px;
+    }
+
+    .primary {
+      color: #09111c;
+      background: linear-gradient(90deg, var(--accent) 0%, #ffdf9e 42%, var(--accent-2) 100%);
+      box-shadow: 0 14px 30px rgba(244, 184, 96, 0.22);
+    }
+
+    .ghost {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .warning {
+      min-height: 1.25em;
+      color: var(--danger);
+      font-size: 0.92rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .field:first-child {
+      margin-top: 0;
+    }
+
+    .field span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(4, 8, 15, 0.55);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .summary {
+      display: grid;
+      gap: 10px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 20px;
+    }
+
+    .summary h3 {
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+
+    .summary p {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
     .hero {
       padding: clamp(28px, 4vw, 44px);
       display: flex;
@@ -223,158 +360,186 @@
       line-height: 1.6;
     }
 
-    .panel {
+    .ai-panel {
       padding: clamp(24px, 3vw, 36px);
       display: flex;
       flex-direction: column;
       gap: 18px;
     }
 
-    .panel h2 {
-      font-size: 1.65rem;
-      letter-spacing: -0.03em;
+    .ai-panel {
+      min-height: 620px;
+      border-radius: 34px;
+      padding: 24px;
+      background: radial-gradient(circle at top, rgba(255, 78, 205, 0.28), transparent 45%),
+        rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
     }
 
-    .panel .subtle {
-      color: var(--muted);
-      line-height: 1.65;
+    .ai-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e9dcff;
+      font-weight: 700;
     }
 
-    .gate,
-    .form,
-    .summary {
-      border-radius: var(--radius-lg);
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      padding: 20px;
+    .ai-status span {
+      width: 11px;
+      height: 11px;
+      background: #55ff99;
+      border-radius: 50%;
+      box-shadow: 0 0 18px #55ff99;
     }
 
-    .gate {
+    .ai-avatar {
+      height: 360px;
+      position: relative;
       display: grid;
-      gap: 14px;
+      place-items: center;
     }
 
-    .option {
+    .glow-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18);
+      animation: pulse 4s infinite ease-in-out;
+    }
+
+    .ring-one {
+      width: 310px;
+      height: 310px;
+    }
+
+    .ring-two {
+      width: 230px;
+      height: 230px;
+      animation-delay: 1s;
+    }
+
+    .person {
+      position: relative;
+      width: 180px;
+      height: 300px;
+      animation: floatPerson 3s infinite ease-in-out;
+    }
+
+    .hair {
+      position: absolute;
+      top: 15px;
+      left: 30px;
+      width: 120px;
+      height: 145px;
+      background: linear-gradient(145deg, #24111f, #5c2458);
+      border-radius: 70px 70px 50px 50px;
+      z-index: 1;
+    }
+
+    .face {
+      position: absolute;
+      top: 45px;
+      left: 43px;
+      width: 94px;
+      height: 115px;
+      background: linear-gradient(145deg, #ffd1bd, #d89183);
+      border-radius: 48% 48% 45% 45%;
+      z-index: 2;
+    }
+
+    .eyes {
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 14px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--muted);
-      line-height: 1.55;
+      justify-content: space-around;
+      padding: 42px 20px 0;
     }
 
-    .option:first-of-type {
-      border-top: 0;
-      padding-top: 0;
+    .eyes span {
+      width: 9px;
+      height: 9px;
+      background: #201020;
+      border-radius: 50%;
+      animation: blink 4s infinite;
     }
 
-    input[type="checkbox"] {
-      margin-top: 4px;
-      width: 18px;
-      height: 18px;
-      accent-color: var(--accent-2);
-      flex: 0 0 auto;
+    .mouth {
+      width: 28px;
+      height: 10px;
+      border-bottom: 3px solid #9b3158;
+      border-radius: 50%;
+      margin: 22px auto 0;
     }
 
-    label[for] {
-      cursor: pointer;
+    .neck {
+      position: absolute;
+      top: 150px;
+      left: 72px;
+      width: 36px;
+      height: 45px;
+      background: #d89183;
+      z-index: 1;
     }
 
-    .button-row {
+    .body {
+      position: absolute;
+      top: 185px;
+      left: 18px;
+      width: 145px;
+      height: 115px;
+      background: linear-gradient(145deg, #ff4ecd, #6851ff);
+      border-radius: 70px 70px 28px 28px;
+      z-index: 0;
+      box-shadow: 0 20px 50px rgba(255,78,205,0.35);
+    }
+
+    .speech-bubble {
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .speech-bubble strong {
+      color: #ffd166;
+    }
+
+    .speech-bubble p {
+      margin: 8px 0 0;
+    }
+
+    .ai-actions {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
-    button {
-      border: 0;
-      border-radius: 14px;
-      padding: 14px 18px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
+    .ai-actions button {
+      flex: 1;
+      min-width: 95px;
     }
 
-    button:hover {
-      transform: translateY(-1px);
+    .ai-actions .ghost {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
-    button:focus-visible,
-    input:focus-visible,
-    textarea:focus-visible {
-      outline: 3px solid rgba(108, 229, 194, 0.45);
-      outline-offset: 2px;
+    @keyframes floatPerson {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
     }
 
-    .primary {
-      color: #09111c;
-      background: linear-gradient(90deg, var(--accent) 0%, #ffdf9e 42%, var(--accent-2) 100%);
-      box-shadow: 0 14px 30px rgba(244, 184, 96, 0.22);
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.08); opacity: 0.8; }
     }
 
-    .ghost {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .field {
-      display: grid;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .field:first-child {
-      margin-top: 0;
-    }
-
-    .field span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    input[type="text"],
-    textarea {
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      background: rgba(4, 8, 15, 0.55);
-      color: var(--text);
-      border-radius: 14px;
-      padding: 14px 16px;
-      font: inherit;
-    }
-
-    textarea {
-      min-height: 150px;
-      resize: vertical;
-      line-height: 1.6;
-    }
-
-    .warning {
-      min-height: 1.25em;
-      color: var(--danger);
-      font-size: 0.92rem;
-    }
-
-    .summary {
-      display: grid;
-      gap: 10px;
-    }
-
-    .summary h3 {
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-    }
-
-    .summary p {
-      color: var(--muted);
-      line-height: 1.65;
+    @keyframes blink {
+      0%, 95%, 100% { transform: scaleY(1); }
+      97% { transform: scaleY(0.1); }
     }
 
     .badge-row {
@@ -431,16 +596,14 @@
       .hero {
         min-height: auto;
       }
-    }
 
-    @media (max-width: 680px) {
-      .app {
-        padding: 14px;
+      .ai-panel {
+        order: -1;
+        min-height: auto;
       }
 
-      .hero,
-      .panel {
-        border-radius: 22px;
+      .ai-avatar {
+        height: 310px;
       }
 
       .stats {
@@ -533,35 +696,40 @@
         </div>
       </div>
 
-      <div class="panel hidden" id="mainApp">
-        <div>
-          <h2>Meet your AI matchmaker</h2>
-          <p class="subtle">Tell the AI what you value in a connection, and get a concise profile summary back.</p>
-          <div class="badge-row">
-            <span class="badge">Private by design</span>
-            <span class="badge">Respectful matching</span>
-            <span class="badge">Adult-only flow</span>
+      <div class="ai-panel hidden" id="mainApp">
+        <div class="ai-status">
+          <span></span>
+          Digital Host Online
+        </div>
+
+        <div class="ai-avatar">
+          <div class="glow-ring ring-one"></div>
+          <div class="glow-ring ring-two"></div>
+
+          <div class="person">
+            <div class="hair"></div>
+            <div class="face">
+              <div class="eyes">
+                <span></span>
+                <span></span>
+              </div>
+              <div class="mouth"></div>
+            </div>
+            <div class="neck"></div>
+            <div class="body"></div>
           </div>
         </div>
 
-        <div class="form">
-          <div class="field">
-            <label for="name">Your first name</label>
-            <input type="text" id="name" placeholder="Alex" autocomplete="given-name" />
-          </div>
-
-          <div class="field">
-            <label for="userInput">What are you looking for?</label>
-            <textarea id="userInput" placeholder="Example: I'm looking for someone honest, fun, mature, and open to real chemistry..."></textarea>
-          </div>
-
-          <div class="button-row">
-            <button class="primary" type="button" id="generateButton">Create My Match Profile</button>
-            <button class="ghost" type="button" id="clearButton">Clear</button>
-          </div>
+        <div class="speech-bubble">
+          <strong>Ava</strong>
+          <p>Hi, I’m your AI matchmaker. Let’s find out what kind of connection feels right for you.</p>
         </div>
 
-        <div class="summary hidden" id="summaryBox" aria-live="polite"></div>
+        <div class="ai-actions">
+          <button type="button" id="talkButton">Talk</button>
+          <button type="button" id="typeButton">Type</button>
+          <button type="button" class="ghost" id="cameraButton">Camera Coming Soon</button>
+        </div>
       </div>
     </section>
   </main>
@@ -574,18 +742,10 @@
     const ageCheck = document.getElementById('ageCheck');
     const consentCheck = document.getElementById('consentCheck');
     const gateWarning = document.getElementById('gateWarning');
-    const summaryBox = document.getElementById('summaryBox');
-    const nameInput = document.getElementById('name');
-    const userInput = document.getElementById('userInput');
-
-    function escapeHtml(value) {
-      return value
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#39;');
-    }
+    const talkButton = document.getElementById('talkButton');
+    const typeButton = document.getElementById('typeButton');
+    const cameraButton = document.getElementById('cameraButton');
+    const speechBubble = document.querySelector('.speech-bubble p');
 
     function showMainApp() {
       ageGate.classList.add('hidden');
@@ -606,29 +766,6 @@
       showMainApp();
     }
 
-    function generateProfile() {
-      const name = nameInput.value.trim() || 'New User';
-      const input = userInput.value.trim();
-
-      if (!input) {
-        summaryBox.classList.remove('hidden');
-        summaryBox.innerHTML = '<h3>Complete your profile first</h3><p>Tell the AI what you are looking for so it can summarize your preferences.</p>';
-        return;
-      }
-
-      const safeName = escapeHtml(name);
-      const safeInput = escapeHtml(input).replaceAll('\n', '<br />');
-
-      summaryBox.classList.remove('hidden');
-      summaryBox.innerHTML = `
-        <h3>${safeName}'s AI Match Summary</h3>
-        <p><strong>Profile Summary:</strong> ${safeInput}</p>
-        <p><strong>Relationship Goal:</strong> To be clarified by the AI intake flow.</p>
-        <p><strong>Match Style:</strong> Private, respectful, adult-only compatibility matching.</p>
-        <p><strong>Safety Rule:</strong> Only consenting adults. No harassment, coercion, solicitation, or illegal activity.</p>
-      `;
-    }
-
     function resetGate() {
       ageCheck.checked = false;
       consentCheck.checked = false;
@@ -636,17 +773,15 @@
       localStorage.removeItem(STORAGE_KEY);
     }
 
-    function clearProfile() {
-      nameInput.value = '';
-      userInput.value = '';
-      summaryBox.classList.add('hidden');
-      summaryBox.innerHTML = '';
+    function setBubbleText(message) {
+      speechBubble.textContent = message;
     }
 
     document.getElementById('enterButton').addEventListener('click', enterSite);
     document.getElementById('resetButton').addEventListener('click', resetGate);
-    document.getElementById('generateButton').addEventListener('click', generateProfile);
-    document.getElementById('clearButton').addEventListener('click', clearProfile);
+    talkButton.addEventListener('click', () => setBubbleText('Hi, I’m your AI matchmaker. Let’s talk about the kind of connection you want.'));
+    typeButton.addEventListener('click', () => setBubbleText('Type your preferences and I’ll help shape a better match profile.'));
+    cameraButton.addEventListener('click', () => setBubbleText('Camera mode is coming soon. For now, let’s keep building your match profile.'));
 
     window.addEventListener('load', () => {
       if (localStorage.getItem(STORAGE_KEY) === 'true') {
