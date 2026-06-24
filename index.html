@@ -87,7 +87,6 @@
       overflow: hidden;
     }
 
-    #ageGate,
     #mainApp {
       width: 100%;
     }
@@ -867,26 +866,7 @@
       </div>
 
       <div class="right-slot">
-        <div class="panel reveal delay-1" id="ageGate">
-          <h2>Enter the experience</h2>
-          <p class="subtle">Confirm the basics before the AI intake becomes available.</p>
-
-          <div class="gate">
-            <div class="option">
-              <input type="checkbox" id="ageCheck" />
-              <label for="ageCheck">I confirm that I am 18 years of age or older.</label>
-            </div>
-
-            <div class="button-row">
-              <button class="primary" type="button" id="enterButton">Enter</button>
-              <button class="ghost" type="button" id="resetButton">Reset</button>
-            </div>
-
-            <p class="warning" id="gateWarning" aria-live="polite"></p>
-          </div>
-        </div>
-
-        <div class="ai-panel hidden" id="mainApp">
+        <div class="ai-panel" id="mainApp">
           <div class="ai-status">
             <span></span>
             Digital Host Online
@@ -1052,10 +1032,7 @@
       }
     ];
 
-    const ageGate = document.getElementById('ageGate');
     const mainApp = document.getElementById('mainApp');
-    const ageCheck = document.getElementById('ageCheck');
-    const gateWarning = document.getElementById('gateWarning');
     const hostBubble = document.getElementById('hostBubble');
     const talkButton = document.getElementById('talkButton');
     const typeButton = document.getElementById('typeButton');
@@ -1127,7 +1104,6 @@
     }
 
     function showMainApp() {
-      ageGate.classList.add('hidden');
       mainApp.classList.remove('hidden');
       syncUi();
     }
@@ -1135,25 +1111,6 @@
     function persistAuth() {
       saveJson(USERS_KEY, state.users);
       saveJson(SESSION_KEY, state.session);
-    }
-
-    function enterSite() {
-      const ageConfirmed = ageCheck.checked;
-
-      if (!ageConfirmed) {
-        gateWarning.textContent = 'You must confirm your age before entering.';
-        return;
-      }
-
-      gateWarning.textContent = '';
-      localStorage.setItem(STORAGE_KEY, 'true');
-      showMainApp();
-    }
-
-    function resetGate() {
-      ageCheck.checked = false;
-      gateWarning.textContent = '';
-      localStorage.removeItem(STORAGE_KEY);
     }
 
     function createAccount() {
@@ -1425,8 +1382,6 @@
       recognition.start();
     }
 
-    document.getElementById('enterButton').addEventListener('click', enterSite);
-    document.getElementById('resetButton').addEventListener('click', resetGate);
     registerButton.addEventListener('click', createAccount);
     loginButton.addEventListener('click', loginAccount);
     logoutButton.addEventListener('click', logoutAccount);
@@ -1452,11 +1407,7 @@
     voiceButton.addEventListener('click', startVoiceInput);
 
     window.addEventListener('load', () => {
-      if (localStorage.getItem(STORAGE_KEY) === 'true') {
-        showMainApp();
-      } else {
-        authState.textContent = 'No account active yet. Create a local account to continue.';
-      }
+      authState.textContent = 'No account active yet. Create a local account to continue.';
 
       if (state.profile) {
         profileAge.value = state.profile.age || '';
@@ -1469,6 +1420,8 @@
       if (state.activeMatchId) {
         renderChat();
       }
+
+      showMainApp();
     });
   </script>
 </body>
