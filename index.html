@@ -877,11 +877,6 @@
               <label for="ageCheck">I confirm that I am 18 years of age or older.</label>
             </div>
 
-            <div class="option">
-              <input type="checkbox" id="consentCheck" />
-              <label for="consentCheck">I agree to use this platform respectfully and understand that harassment, coercion, solicitation, or illegal activity is not allowed.</label>
-            </div>
-
             <div class="button-row">
               <button class="primary" type="button" id="enterButton">Enter</button>
               <button class="ghost" type="button" id="resetButton">Reset</button>
@@ -1060,7 +1055,6 @@
     const ageGate = document.getElementById('ageGate');
     const mainApp = document.getElementById('mainApp');
     const ageCheck = document.getElementById('ageCheck');
-    const consentCheck = document.getElementById('consentCheck');
     const gateWarning = document.getElementById('gateWarning');
     const hostBubble = document.getElementById('hostBubble');
     const talkButton = document.getElementById('talkButton');
@@ -1145,10 +1139,9 @@
 
     function enterSite() {
       const ageConfirmed = ageCheck.checked;
-      const consentConfirmed = consentCheck.checked;
 
-      if (!ageConfirmed || !consentConfirmed) {
-        gateWarning.textContent = 'You must confirm age and consent before entering.';
+      if (!ageConfirmed) {
+        gateWarning.textContent = 'You must confirm your age before entering.';
         return;
       }
 
@@ -1159,7 +1152,6 @@
 
     function resetGate() {
       ageCheck.checked = false;
-      consentCheck.checked = false;
       gateWarning.textContent = '';
       localStorage.removeItem(STORAGE_KEY);
     }
