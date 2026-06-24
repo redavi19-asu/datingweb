@@ -527,6 +527,180 @@
       border: 1px solid rgba(255,255,255,0.2);
     }
 
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .module {
+      border-radius: 22px;
+      padding: 18px;
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: grid;
+      gap: 12px;
+    }
+
+    .module h3 {
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+    }
+
+    .module.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    .auth-state,
+    .microcopy,
+    .device-status,
+    .match-meta,
+    .match-summary,
+    .profile-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .inline-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .inline-actions button {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .match-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .match-card {
+      text-align: left;
+      width: 100%;
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .match-card.active {
+      border-color: rgba(108, 229, 194, 0.7);
+      box-shadow: 0 0 0 1px rgba(108, 229, 194, 0.35);
+    }
+
+    .match-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .match-head strong {
+      font-size: 1rem;
+    }
+
+    .match-head span {
+      color: #ffd166;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    .match-card p,
+    .match-card small {
+      color: var(--muted);
+      display: block;
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    .chat-window {
+      display: grid;
+      gap: 12px;
+    }
+
+    .chat-messages {
+      max-height: 220px;
+      overflow: auto;
+      display: grid;
+      gap: 10px;
+      padding-right: 4px;
+    }
+
+    .message {
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .message.me {
+      background: rgba(108, 229, 194, 0.12);
+      border-color: rgba(108, 229, 194, 0.22);
+    }
+
+    .message strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+
+    .chat-compose {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chat-compose input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .camera-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(220px, 0.8fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .camera-preview {
+      width: 100%;
+      min-height: 220px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      object-fit: cover;
+    }
+
+    .hidden-video {
+      display: none;
+    }
+
+    .camera-tools {
+      display: grid;
+      gap: 10px;
+    }
+
+    .camera-tools .mini-status {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
     @keyframes floatPerson {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-12px); }
@@ -604,6 +778,12 @@
 
       .ai-avatar {
         height: 310px;
+      }
+
+      .module-grid,
+      .form-grid,
+      .camera-row {
+        grid-template-columns: 1fr;
       }
 
       .stats {
@@ -722,7 +902,7 @@
 
         <div class="speech-bubble">
           <strong>Ava</strong>
-          <p>Hi, I’m your AI matchmaker. Let’s find out what kind of connection feels right for you.</p>
+          <p id="hostBubble">Hi, I’m your AI matchmaker. Let’s find out what kind of connection feels right for you.</p>
         </div>
 
         <div class="ai-actions">
@@ -730,26 +910,221 @@
           <button type="button" id="typeButton">Type</button>
           <button type="button" class="ghost" id="cameraButton">Camera Coming Soon</button>
         </div>
+
+        <div class="module-grid">
+          <section class="module">
+            <h3>Account Access</h3>
+            <div class="form-grid">
+              <div class="field full">
+                <span>Email</span>
+                <input type="text" id="authEmail" placeholder="you@example.com" autocomplete="email" />
+              </div>
+              <div class="field full">
+                <span>Password</span>
+                <input type="password" id="authPassword" placeholder="Create or enter a password" autocomplete="current-password" />
+              </div>
+              <div class="field full">
+                <span>Display name</span>
+                <input type="text" id="authName" placeholder="Your display name" autocomplete="name" />
+              </div>
+            </div>
+            <div class="inline-actions">
+              <button type="button" id="registerButton">Create Account</button>
+              <button type="button" id="loginButton">Login</button>
+              <button type="button" class="ghost" id="logoutButton">Logout</button>
+            </div>
+            <p class="auth-state" id="authState">No account active yet. Create a local account to continue.</p>
+          </section>
+
+          <section class="module">
+            <h3>Your Profile</h3>
+            <div class="form-grid">
+              <div class="field">
+                <span>Age</span>
+                <input type="text" id="profileAge" placeholder="29" inputmode="numeric" />
+              </div>
+              <div class="field">
+                <span>City</span>
+                <input type="text" id="profileCity" placeholder="Austin" />
+              </div>
+              <div class="field full">
+                <span>Interests</span>
+                <input type="text" id="profileInterests" placeholder="music, coffee, hiking, honest conversation" />
+              </div>
+              <div class="field full">
+                <span>What are you looking for?</span>
+                <input type="text" id="profileGoal" placeholder="something thoughtful and real" />
+              </div>
+              <div class="field full">
+                <span>About you</span>
+                <textarea id="profileBio" placeholder="Tell Ava what makes you a good match..."></textarea>
+              </div>
+            </div>
+            <div class="inline-actions">
+              <button type="button" id="saveProfileButton">Save Profile</button>
+              <button type="button" class="ghost" id="generateMatchesButton">Find Matches</button>
+            </div>
+            <p class="profile-note" id="profileNote">Complete your profile to unlock matching.</p>
+          </section>
+
+          <section class="module full">
+            <h3>Recommended Matches</h3>
+            <div class="match-summary" id="matchSummary">Saved profiles will generate ranked suggestions here.</div>
+            <div class="match-list" id="matchList"></div>
+          </section>
+
+          <section class="module full chat-window">
+            <h3>Conversation with <span id="activeMatchName">No match selected</span></h3>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-compose">
+              <input type="text" id="chatInput" placeholder="Send a message" />
+              <button type="button" id="sendChatButton">Send</button>
+            </div>
+          </section>
+
+          <section class="module full">
+            <h3>Camera and Voice</h3>
+            <div class="camera-row">
+              <video id="cameraPreview" class="camera-preview hidden-video" autoplay playsinline muted></video>
+              <div class="camera-tools">
+                <button type="button" id="cameraStartButton">Enable Camera Preview</button>
+                <button type="button" class="ghost" id="voiceButton">Speak to Ava</button>
+                <p class="device-status" id="deviceStatus">Camera and voice stay local to your browser when supported.</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </section>
   </main>
 
   <script>
     const STORAGE_KEY = 'adultConsentConfirmed';
+    const USERS_KEY = 'datingUsers';
+    const SESSION_KEY = 'datingSession';
+    const PROFILE_KEY = 'datingProfile';
+    const MESSAGES_KEY = 'datingMessages';
+    const ACTIVE_MATCH_KEY = 'datingActiveMatch';
+
+    const SAMPLE_MATCHES = [
+      {
+        id: 'maya',
+        name: 'Maya',
+        age: 29,
+        city: 'Austin',
+        tags: ['music', 'coffee', 'creative', 'travel', 'honest'],
+        summary: 'Warm, curious, and into live music, slow mornings, and real conversation.'
+      },
+      {
+        id: 'sam',
+        name: 'Sam',
+        age: 32,
+        city: 'Denver',
+        tags: ['hiking', 'fitness', 'playful', 'weekends', 'nature'],
+        summary: 'Enjoys trail days, spontaneous plans, and a partner who likes outdoorsy energy.'
+      },
+      {
+        id: 'nora',
+        name: 'Nora',
+        age: 27,
+        city: 'Chicago',
+        tags: ['art', 'books', 'intentional', 'food', 'calm'],
+        summary: 'Thoughtful, emotionally direct, and looking for a steady, kind connection.'
+      },
+      {
+        id: 'leo',
+        name: 'Leo',
+        age: 31,
+        city: 'Seattle',
+        tags: ['tech', 'gaming', 'humor', 'coffee', 'travel'],
+        summary: 'Low-drama, high-humor, and interested in someone who likes a clever spark.'
+      }
+    ];
 
     const ageGate = document.getElementById('ageGate');
     const mainApp = document.getElementById('mainApp');
     const ageCheck = document.getElementById('ageCheck');
     const consentCheck = document.getElementById('consentCheck');
     const gateWarning = document.getElementById('gateWarning');
+    const hostBubble = document.getElementById('hostBubble');
     const talkButton = document.getElementById('talkButton');
     const typeButton = document.getElementById('typeButton');
     const cameraButton = document.getElementById('cameraButton');
-    const speechBubble = document.querySelector('.speech-bubble p');
+    const registerButton = document.getElementById('registerButton');
+    const loginButton = document.getElementById('loginButton');
+    const logoutButton = document.getElementById('logoutButton');
+    const saveProfileButton = document.getElementById('saveProfileButton');
+    const generateMatchesButton = document.getElementById('generateMatchesButton');
+    const sendChatButton = document.getElementById('sendChatButton');
+    const cameraStartButton = document.getElementById('cameraStartButton');
+    const voiceButton = document.getElementById('voiceButton');
+    const authState = document.getElementById('authState');
+    const profileNote = document.getElementById('profileNote');
+    const matchSummary = document.getElementById('matchSummary');
+    const matchList = document.getElementById('matchList');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const activeMatchName = document.getElementById('activeMatchName');
+    const deviceStatus = document.getElementById('deviceStatus');
+    const cameraPreview = document.getElementById('cameraPreview');
+    const authEmail = document.getElementById('authEmail');
+    const authPassword = document.getElementById('authPassword');
+    const authName = document.getElementById('authName');
+    const profileAge = document.getElementById('profileAge');
+    const profileCity = document.getElementById('profileCity');
+    const profileInterests = document.getElementById('profileInterests');
+    const profileGoal = document.getElementById('profileGoal');
+    const profileBio = document.getElementById('profileBio');
+
+    const state = {
+      users: loadJson(USERS_KEY, []),
+      session: loadJson(SESSION_KEY, null),
+      profile: loadJson(PROFILE_KEY, null),
+      messages: loadJson(MESSAGES_KEY, {}),
+      activeMatchId: localStorage.getItem(ACTIVE_MATCH_KEY) || SAMPLE_MATCHES[0].id
+    };
+
+    function loadJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveJson(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function normalizeTerms(value) {
+      return value
+        .toLowerCase()
+        .split(/[^a-z0-9]+/)
+        .filter(Boolean);
+    }
+
+    function currentUser() {
+      if (!state.session) {
+        return null;
+      }
+
+      return state.users.find((user) => user.email === state.session.email) || null;
+    }
+
+    function setHostBubble(message) {
+      hostBubble.textContent = message;
+    }
 
     function showMainApp() {
       ageGate.classList.add('hidden');
       mainApp.classList.remove('hidden');
+      syncUi();
+    }
+
+    function persistAuth() {
+      saveJson(USERS_KEY, state.users);
+      saveJson(SESSION_KEY, state.session);
     }
 
     function enterSite() {
@@ -773,19 +1148,318 @@
       localStorage.removeItem(STORAGE_KEY);
     }
 
+    function createAccount() {
+      const email = authEmail.value.trim().toLowerCase();
+      const password = authPassword.value.trim();
+      const displayName = authName.value.trim();
+
+      if (!email || !password || !displayName) {
+        authState.textContent = 'Enter email, password, and display name to create a local account.';
+        return;
+      }
+
+      const existing = state.users.find((user) => user.email === email);
+
+      if (existing) {
+        authState.textContent = 'That account already exists. Use Login instead.';
+        return;
+      }
+
+      state.users.push({ email, password, displayName });
+      state.session = { email };
+      persistAuth();
+      authState.textContent = `Account created and signed in as ${displayName}.`;
+      syncUi();
+    }
+
+    function loginAccount() {
+      const email = authEmail.value.trim().toLowerCase();
+      const password = authPassword.value.trim();
+      const user = state.users.find((entry) => entry.email === email && entry.password === password);
+
+      if (!user) {
+        authState.textContent = 'Login failed. Check the email and password you used for this local account.';
+        return;
+      }
+
+      state.session = { email };
+      persistAuth();
+      authState.textContent = `Signed in as ${user.displayName}.`;
+      syncUi();
+    }
+
+    function logoutAccount() {
+      state.session = null;
+      persistAuth();
+      authState.textContent = 'Signed out. Your profile stays saved locally until you clear it.';
+      syncUi();
+    }
+
+    function saveProfile() {
+      const user = currentUser();
+
+      if (!user) {
+        profileNote.textContent = 'Create and sign into a local account first.';
+        return;
+      }
+
+      state.profile = {
+        email: user.email,
+        displayName: user.displayName,
+        age: profileAge.value.trim(),
+        city: profileCity.value.trim(),
+        interests: profileInterests.value.trim(),
+        goal: profileGoal.value.trim(),
+        bio: profileBio.value.trim()
+      };
+
+      saveJson(PROFILE_KEY, state.profile);
+      profileNote.textContent = 'Profile saved locally. Generate matches to see ranked suggestions.';
+      renderMatches();
+    }
+
+    function scoredMatches() {
+      const profile = state.profile;
+      const terms = normalizeTerms([
+        profile?.interests || '',
+        profile?.goal || '',
+        profile?.bio || ''
+      ].join(' '));
+
+      return SAMPLE_MATCHES
+        .map((match) => {
+          const overlap = match.tags.filter((tag) => terms.includes(tag)).length;
+          const cityBoost = profile?.city && profile.city.toLowerCase() === match.city.toLowerCase() ? 2 : 0;
+          const ageBoost = profile?.age && Number(profile.age) >= 25 && Number(profile.age) <= 45 ? 1 : 0;
+          const score = overlap * 25 + cityBoost * 10 + ageBoost * 5 + 20;
+
+          return {
+            ...match,
+            score: Math.min(99, score)
+          };
+        })
+        .sort((left, right) => right.score - left.score);
+    }
+
+    function ensureMessages(matchId) {
+      if (!state.messages[matchId]) {
+        state.messages[matchId] = [
+          { author: 'Ava', text: 'A good match starts with honest preferences. Tell me what chemistry looks like for you.' }
+        ];
+      }
+
+      return state.messages[matchId];
+    }
+
+    function selectMatch(matchId) {
+      state.activeMatchId = matchId;
+      localStorage.setItem(ACTIVE_MATCH_KEY, matchId);
+      renderChat();
+    }
+
+    function renderMatches() {
+      const matches = scoredMatches();
+      matchList.innerHTML = '';
+
+      if (!state.profile) {
+        matchSummary.textContent = 'Save a profile to unlock ranked matches.';
+        return;
+      }
+
+      matchSummary.textContent = `Top suggestions for ${state.profile.displayName || 'you'} based on shared interests and location.`;
+
+      matches.slice(0, 3).forEach((match) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = `match-card${match.id === state.activeMatchId ? ' active' : ''}`;
+        const head = document.createElement('div');
+        head.className = 'match-head';
+
+        const name = document.createElement('strong');
+        name.textContent = match.name;
+
+        const score = document.createElement('span');
+        score.textContent = `${match.score}%`;
+
+        const summary = document.createElement('p');
+        summary.textContent = match.summary;
+
+        const meta = document.createElement('small');
+        meta.textContent = `${match.age} • ${match.city} • ${match.tags.join(' • ')}`;
+
+        head.append(name, score);
+        card.append(head, summary, meta);
+        card.addEventListener('click', () => selectMatch(match.id));
+        matchList.appendChild(card);
+      });
+
+      if (!state.messages[state.activeMatchId]) {
+        ensureMessages(state.activeMatchId);
+      }
+
+      renderChat();
+    }
+
+    function renderChat() {
+      const match = SAMPLE_MATCHES.find((entry) => entry.id === state.activeMatchId) || SAMPLE_MATCHES[0];
+      activeMatchName.textContent = match.name;
+      const thread = ensureMessages(match.id);
+      chatMessages.innerHTML = '';
+
+      thread.forEach((message) => {
+        const bubble = document.createElement('div');
+        bubble.className = `message${message.author === 'You' ? ' me' : ''}`;
+        const author = document.createElement('strong');
+        author.textContent = message.author;
+
+        const text = document.createElement('span');
+        text.textContent = message.text;
+
+        bubble.append(author, text);
+        chatMessages.appendChild(bubble);
+      });
+    }
+
+    function sendChatMessage() {
+      const text = chatInput.value.trim();
+
+      if (!text) {
+        return;
+      }
+
+      const match = SAMPLE_MATCHES.find((entry) => entry.id === state.activeMatchId) || SAMPLE_MATCHES[0];
+      const thread = ensureMessages(match.id);
+      thread.push({ author: 'You', text });
+      thread.push({ author: match.name, text: `That sounds promising. I’d be into a ${text.toLowerCase().slice(0, 120)} kind of conversation.` });
+      state.messages[match.id] = thread;
+      saveJson(MESSAGES_KEY, state.messages);
+      chatInput.value = '';
+      renderChat();
+    }
+
+    function syncUi() {
+      const user = currentUser();
+
+      if (user) {
+        authState.textContent = `Signed in as ${user.displayName}.`;
+      } else {
+        authState.textContent = 'No account active yet. Create a local account to continue.';
+      }
+
+      if (state.profile) {
+        profileAge.value = state.profile.age || '';
+        profileCity.value = state.profile.city || '';
+        profileInterests.value = state.profile.interests || '';
+        profileGoal.value = state.profile.goal || '';
+        profileBio.value = state.profile.bio || '';
+      }
+
+      renderMatches();
+    }
+
     function setBubbleText(message) {
-      speechBubble.textContent = message;
+      setHostBubble(message);
+    }
+
+    function speakHost() {
+      const message = 'Hi, I’m Ava. I’m your AI matchmaker. Let’s find out what kind of connection feels right for you.';
+      setBubbleText(message);
+
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(message);
+        utterance.rate = 0.95;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    async function startCameraPreview() {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        deviceStatus.textContent = 'Camera access is not supported in this browser.';
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        cameraPreview.srcObject = stream;
+        cameraPreview.classList.remove('hidden-video');
+        deviceStatus.textContent = 'Camera preview is live locally in your browser.';
+      } catch (error) {
+        deviceStatus.textContent = 'Camera permission was denied or unavailable.';
+      }
+    }
+
+    function startVoiceInput() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!SpeechRecognition) {
+        deviceStatus.textContent = 'Voice input is not supported in this browser.';
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      deviceStatus.textContent = 'Listening for a profile note or chat message...';
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        chatInput.value = transcript;
+        deviceStatus.textContent = `Captured voice note: ${transcript}`;
+      };
+
+      recognition.onerror = () => {
+        deviceStatus.textContent = 'Voice recognition stopped before a result was captured.';
+      };
+
+      recognition.start();
     }
 
     document.getElementById('enterButton').addEventListener('click', enterSite);
     document.getElementById('resetButton').addEventListener('click', resetGate);
-    talkButton.addEventListener('click', () => setBubbleText('Hi, I’m your AI matchmaker. Let’s talk about the kind of connection you want.'));
-    typeButton.addEventListener('click', () => setBubbleText('Type your preferences and I’ll help shape a better match profile.'));
-    cameraButton.addEventListener('click', () => setBubbleText('Camera mode is coming soon. For now, let’s keep building your match profile.'));
+    registerButton.addEventListener('click', createAccount);
+    loginButton.addEventListener('click', loginAccount);
+    logoutButton.addEventListener('click', logoutAccount);
+    saveProfileButton.addEventListener('click', saveProfile);
+    generateMatchesButton.addEventListener('click', renderMatches);
+    sendChatButton.addEventListener('click', sendChatMessage);
+    chatInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        sendChatMessage();
+      }
+    });
+    talkButton.addEventListener('click', speakHost);
+    typeButton.addEventListener('click', () => {
+      profileBio.focus();
+      setBubbleText('Type your preferences and I’ll help shape a better match profile.');
+    });
+    cameraButton.addEventListener('click', () => {
+      startCameraPreview();
+      setBubbleText('Camera mode is coming soon. For now, let’s keep building your match profile.');
+    });
+    cameraStartButton.addEventListener('click', startCameraPreview);
+    voiceButton.addEventListener('click', startVoiceInput);
 
     window.addEventListener('load', () => {
       if (localStorage.getItem(STORAGE_KEY) === 'true') {
         showMainApp();
+      } else {
+        authState.textContent = 'No account active yet. Create a local account to continue.';
+      }
+
+      if (state.profile) {
+        profileAge.value = state.profile.age || '';
+        profileCity.value = state.profile.city || '';
+        profileInterests.value = state.profile.interests || '';
+        profileGoal.value = state.profile.goal || '';
+        profileBio.value = state.profile.bio || '';
+      }
+
+      if (state.activeMatchId) {
+        renderChat();
       }
     });
   </script>
